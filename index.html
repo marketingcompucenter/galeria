@@ -12,7 +12,7 @@
     }
 
     html, body {
-      height: 100%; /* ocupar toda la pantalla */
+      height: 100%;
     }
 
     body {
@@ -21,7 +21,7 @@
       color: #fff;
       line-height: 1.6;
       display: flex;
-      flex-direction: column; /* layout vertical */
+      flex-direction: column;
     }
 
     header {
@@ -39,7 +39,7 @@
       max-width: 1200px;
       margin: auto;
       padding: 1rem;
-      flex: 1; /* empuja el footer abajo */
+      flex: 1;
       width: 100%;
     }
 
@@ -74,15 +74,36 @@
       overflow: hidden;
     }
 
-    .video-wrapper iframe,
-    .video-wrapper video {
+    /* Miniatura personalizada */
+    .thumbnail {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      cursor: pointer;
+    }
+    .thumbnail img {
       width: 100%;
       height: 100%;
-      border: none;
       object-fit: cover;
+      display: block;
+    }
+    .thumbnail::after {
+      content: "▶";
+      font-size: 3rem;
+      color: white;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      padding: 10px 20px;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
     }
 
     .video-card h3 {
@@ -101,39 +122,50 @@
 </head>
 <body>
   <header>
-    <h1>Galería de Videos</h1>
+    <h1>Guía de primer carga de tinta</h1>
   </header>
 
   <main class="container">
     <div class="video-grid">
-      <!-- Video local -->
-<div class="video-card">
+
+      
+      <!-- Video 2 -->
+      <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://youtube.com/embed/LYISUyPQ1SA?si=-StbvqxqdNtCugD-" allowfullscreen></iframe>
+          <div class="thumbnail" data-video="https://www.youtube.com/embed/cD63ESFOoWg?autoplay=1">
+            <img src="assets/miniatura-3170-web.jpg" alt="Miniatura Video 2">
+          </div>
         </div>
-        <h3>Título del Video en YouTube</h3>
+        <h3>CANON PIXMA G3170</h3>
       </div>
 
-      <!-- Video de YouTube -->
+      <!-- Video 3 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://youtube.com/embed/cD63ESFOoWg?si=7m-03p76g2A8fnsH" allowfullscreen></iframe>
+          <div class="thumbnail" data-video="https://www.youtube.com/embed/LYISUyPQ1SA?autoplay=1">
+            <img src="thumbnails/video3.jpg" alt="Miniatura Video 3">
+          </div>
         </div>
-        <h3>Título del Video en YouTube</h3>
+        <h3>Pronto tutoriales de más modelos</h3>
       </div>
-      
-      <!-- Otro Video local -->
-      <div class="video-card">
-        <div class="video-wrapper">
-          <iframe src="https://youtube.com/embed/3j-QEZQOXlA?si=yaWDb0qgyDoJ_0FM" allowfullscreen></iframe>
-        </div>
-        <h3>Título del Video en YouTube</h3>
-      </div>
+
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 Tu Sitio de Videos</p>
+    <p>&copy; 2025 Compu Center</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.thumbnail').forEach(el => {
+      el.addEventListener('click', function() {
+        const videoUrl = this.getAttribute('data-video');
+        const iframe = document.createElement('iframe');
+        iframe.src = videoUrl;
+        iframe.setAttribute('allowfullscreen', true);
+        this.replaceWith(iframe);
+      });
+    });
+  </script>
 </body>
 </html>
